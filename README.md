@@ -1,21 +1,20 @@
-## Identificación del Problema
+# Identificación del problema
 
-La universidad organiza diversos eventos a través de sus distintas 
-**unidades académicas y administrativas**, destinados a públicos variados 
-(estudiantes, funcionarios, niños y personas externas). 
+**Contexto**
+Las distintas **unidades académicas y administrativas** de la universidad organizan eventos dirigidos a distintos públicos: **alumnos, funcionarios, niños y personas externas** a la Universidad.
 
-Actualmente:
+**Situación descrita**
+Según el enunciado del proyecto, **a la universidad le resulta difícil mantener un calendario de estos eventos**.
 
-- **No existe un sistema centralizado** para registrar y difundir estos eventos.  
-- Cada unidad maneja su propia información, lo que genera **descoordinación** 
-  y **duplicación de esfuerzos**.  
-- Los usuarios interesados tienen **dificultad para acceder a la información** 
-  de manera clara, actualizada y en un solo lugar.  
-- La **página web de la universidad** no ofrece un calendario integrado de 
-  eventos, lo que **reduce la visibilidad** de las actividades y **limita la participación**.  
+**Necesidad planteada**
+En este proyecto se solicita **desarrollar una interfaz para un sistema que gestione estos eventos, integrada a la página web de la universidad**.
 
-### Problema central
-La universidad carece de un sistema unificado y accesible que permita 
-**gestionar y difundir de forma ordenada** los eventos que organiza, 
-lo que genera confusión, baja participación y pérdida de oportunidades 
-de vinculación con la comunidad universitaria y externa.
+---
+
+## Elementos clave
+
+* **Actores:** unidades académicas y administrativas; alumnos; funcionarios; público externo (incluyendo niños).
+* **Problema principal:** dificultad para mantener un calendario de eventos.
+* **Requerimiento del proyecto:** una interfaz que permita gestionar los eventos y que esté integrada en la página web institucional.
+
+---

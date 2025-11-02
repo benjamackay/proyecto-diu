@@ -1,9 +1,12 @@
+import FiltroComponent from "./components/FiltroComponent"
+import HeaderComponent from "./components/HeaderComponent"
 import Index from "./pages/Index"
 
 function App() {
   return (
     <div>
-      <Index/>
+      <p>holla</p>
+      
     </div>
   )
 }

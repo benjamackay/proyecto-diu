@@ -1,6 +1,6 @@
 import { 
   X, Calendar, Clock, MapPin, Users, Share2, Download, 
-  Accessibility, Baby, Phone, Mail, CheckCircle, AlertCircle 
+  Accessibility, Baby, Phone, Mail, CheckCircle, AlertCircle, CirclePlus
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -222,7 +222,7 @@ export const EventDetailModal = ({
                       className="flex-1"
                       onClick={() => window.open(generateCalendarLink('google'), '_blank')}
                     >
-                      <Download className="h-3 w-3 mr-1" />
+                      <CirclePlus className="h-3 w-3 mr-1" />
                       Google
                     </Button>
                     <Button
@@ -231,7 +231,7 @@ export const EventDetailModal = ({
                       className="flex-1"
                       onClick={() => {/* Implementar iCal */}}
                     >
-                      <Download className="h-3 w-3 mr-1" />
+                      <CirclePlus className="h-3 w-3 mr-1" />
                       iCal
                     </Button>
                   </div>

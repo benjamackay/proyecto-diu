@@ -6,6 +6,10 @@ import { Event } from '@/types/events';
 import { cn } from '@/lib/utils';
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
+import ImagenProgramacion from '@/assets/programacion.jpeg';
+import ImagenCultura from '@/assets/orquesta.jpg';
+import ImagenCiencia from '@/assets/laboratorio.jpg';
+import ImagenAdministrativo from '@/assets/reunion.webp';
 
 interface EventCardProps {
   event: Event;
@@ -33,6 +37,13 @@ const getThemeLabel = (theme: string) => {
     case 'admin': return 'Administrativo';
     default: return theme;
   }
+};
+
+const themeImages: Record<string, string> = {
+  programming: ImagenProgramacion,
+  culture: ImagenCultura,
+  science: ImagenCiencia,
+  admin: ImagenAdministrativo,
 };
 
 const getModalityLabel = (modality: string) => {
@@ -68,6 +79,8 @@ export const EventCard = ({
   const isAlmostFull = availableSpots <= event.capacity * 0.2;
   const isFull = availableSpots <= 0;
 
+  const imageUrl = themeImages[event.theme] || "/images/default.jpg";
+
   return (
     <Card className={cn(
       "group hover:shadow-elevation transition-smooth cursor-pointer",
@@ -75,8 +88,21 @@ export const EventCard = ({
       className
     )}>
       <CardContent className={cn("p-4", compact && "p-3")}>
+
+        {/* Imagen según el tema */}
+        {!compact && (
+          <div className="w-full h-40 rounded-md overflow-hidden mb-3">
+            <img 
+              src={imageUrl}
+              alt={event.title}
+              className="w-full h-full object-cover group-hover:scale-105 transition-transform"
+            />
+          </div>
+        )}
+
         <div className="space-y-3">
-          {/* Header con título y badges */}
+
+          {/* Header */}
           <div className="space-y-2">
             <div className="flex items-start justify-between gap-2">
               <h3 className={cn(
@@ -89,8 +115,7 @@ export const EventCard = ({
                 {getThemeLabel(event.theme)}
               </Badge>
             </div>
-            
-            {/* Descripción (solo en modo no compacto) */}
+
             {!compact && (
               <p className="text-sm text-muted-foreground line-clamp-2">
                 {event.description}
@@ -98,16 +123,15 @@ export const EventCard = ({
             )}
           </div>
 
-          {/* Información principal */}
+          {/* Info */}
           <div className="space-y-2">
-            {/* Fecha y hora */}
             <div className="flex items-center text-sm text-muted-foreground">
               <Calendar className="h-4 w-4 mr-2 text-primary" />
               <span>
                 {format(event.startDate, "EEEE, d 'de' MMMM", { locale: es })}
               </span>
             </div>
-            
+
             <div className="flex items-center text-sm text-muted-foreground">
               <Clock className="h-4 w-4 mr-2 text-primary" />
               <span>
@@ -115,7 +139,6 @@ export const EventCard = ({
               </span>
             </div>
 
-            {/* Ubicación y modalidad */}
             <div className="flex items-center text-sm text-muted-foreground">
               <MapPin className="h-4 w-4 mr-2 text-primary" />
               <span className="flex-1">
@@ -123,7 +146,6 @@ export const EventCard = ({
               </span>
             </div>
 
-            {/* Audiencia */}
             {!compact && (
               <div className="flex items-center text-sm text-muted-foreground">
                 <Users className="h-4 w-4 mr-2 text-primary" />
@@ -132,18 +154,16 @@ export const EventCard = ({
             )}
           </div>
 
-          {/* Footer con estado de capacidad y botones */}
+          {/* Footer */}
           <div className="flex items-center justify-between pt-2">
             <div className="flex items-center space-x-2">
-              {/* Indicador de capacidad */}
               <div className="flex items-center text-xs text-muted-foreground">
                 <Users className="h-3 w-3 mr-1" />
                 <span>
                   {event.registeredCount}/{event.capacity}
                 </span>
               </div>
-              
-              {/* Badges de estado */}
+
               {isFull ? (
                 <Badge variant="destructive" className="text-xs">
                   Completo
@@ -159,7 +179,6 @@ export const EventCard = ({
               )}
             </div>
 
-            {/* Botones de acción */}
             <div className="flex items-center space-x-2">
               <Button
                 variant="outline"
@@ -173,7 +192,7 @@ export const EventCard = ({
                 <Eye className="h-3 w-3 mr-1" />
                 Ver
               </Button>
-              
+
               {!isFull && (
                 <Button
                   variant="default"

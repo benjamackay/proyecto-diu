@@ -190,7 +190,7 @@ export const EventCard = ({
                 className="transition-quick"
               >
                 <Eye className="h-3 w-3 mr-1" />
-                Ver
+                Más Información
               </Button>
 
               {!isFull && (

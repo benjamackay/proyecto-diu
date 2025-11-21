@@ -110,6 +110,31 @@ export const FilterPanel = ({
     });
   };
 
+  const isDateFilterActive = (type: 'today' | 'week' | 'month') => {
+    if (!filters.dateRange?.start || !filters.dateRange?.end) return false;
+    
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    
+    const startMatches = filters.dateRange.start.getTime() === today.getTime();
+    if (!startMatches) return false;
+    
+    const daysDiff = Math.floor(
+      (filters.dateRange.end.getTime() - filters.dateRange.start.getTime()) / (1000 * 60 * 60 * 24)
+    );
+    
+    switch (type) {
+      case 'today':
+        return daysDiff === 0;
+      case 'week':
+        return daysDiff === 7;
+      case 'month':
+        return daysDiff >= 28 && daysDiff <= 31;
+      default:
+        return false;
+    }
+  };
+
   return (
     <Card className={cn("w-full max-w-md", className)}>
       <CardHeader className="pb-4">
@@ -138,26 +163,35 @@ export const FilterPanel = ({
           <Label className="text-sm font-medium mb-3 block">Fecha</Label>
           <div className="flex flex-wrap gap-2">
             <Button
-              variant="outline"
+              variant={isDateFilterActive('today') ? "default" : "outline"}
               size="sm"
               onClick={() => setQuickDateFilter('today')}
-              className="text-xs"
+              className={cn(
+                "text-xs transition-all",
+                isDateFilterActive('today') && "shadow-md"
+              )}
             >
               Hoy
             </Button>
             <Button
-              variant="outline"
+              variant={isDateFilterActive('week') ? "default" : "outline"}
               size="sm"
               onClick={() => setQuickDateFilter('week')}
-              className="text-xs"
+              className={cn(
+                "text-xs transition-all",
+                isDateFilterActive('week') && "shadow-md"
+              )}
             >
               Esta semana
             </Button>
             <Button
-              variant="outline"
+              variant={isDateFilterActive('month') ? "default" : "outline"}
               size="sm"
               onClick={() => setQuickDateFilter('month')}
-              className="text-xs"
+              className={cn(
+                "text-xs transition-all",
+                isDateFilterActive('month') && "shadow-md"
+              )}
             >
               Este mes
             </Button>
@@ -169,7 +203,14 @@ export const FilterPanel = ({
           <Label className="text-sm font-medium mb-3 block">Tema</Label>
           <div className="space-y-2">
             {themeOptions.map((option) => (
-              <div key={option.value} className="flex items-center space-x-2">
+              <div 
+                key={option.value} 
+                className={cn(
+                  "flex items-center space-x-2 p-2 rounded-md transition-colors",
+                  "hover:bg-accent/50",
+                  filters.theme?.includes(option.value) && "bg-accent border border-primary/20"
+                )}
+              >
                 <Checkbox
                   id={`theme-${option.value}`}
                   checked={filters.theme?.includes(option.value) || false}
@@ -196,7 +237,14 @@ export const FilterPanel = ({
           <Label className="text-sm font-medium mb-3 block">Audiencia</Label>
           <div className="space-y-2">
             {audienceOptions.map((option) => (
-              <div key={option.value} className="flex items-center space-x-2">
+              <div 
+                key={option.value} 
+                className={cn(
+                  "flex items-center space-x-2 p-2 rounded-md transition-colors",
+                  "hover:bg-accent/50",
+                  filters.audience?.includes(option.value) && "bg-accent border border-primary/20"
+                )}
+              >
                 <Checkbox
                   id={`audience-${option.value}`}
                   checked={filters.audience?.includes(option.value) || false}
@@ -206,7 +254,7 @@ export const FilterPanel = ({
                 />
                 <Label
                   htmlFor={`audience-${option.value}`}
-                  className="text-sm cursor-pointer"
+                  className="text-sm cursor-pointer flex-1"
                 >
                   {option.label}
                 </Label>
@@ -220,7 +268,14 @@ export const FilterPanel = ({
           <Label className="text-sm font-medium mb-3 block">Modalidad</Label>
           <div className="space-y-2">
             {modalityOptions.map((option) => (
-              <div key={option.value} className="flex items-center space-x-2">
+              <div 
+                key={option.value} 
+                className={cn(
+                  "flex items-center space-x-2 p-2 rounded-md transition-colors",
+                  "hover:bg-accent/50",
+                  filters.modality?.includes(option.value) && "bg-accent border border-primary/20"
+                )}
+              >
                 <Checkbox
                   id={`modality-${option.value}`}
                   checked={filters.modality?.includes(option.value) || false}
@@ -230,7 +285,7 @@ export const FilterPanel = ({
                 />
                 <Label
                   htmlFor={`modality-${option.value}`}
-                  className="text-sm cursor-pointer"
+                  className="text-sm cursor-pointer flex-1"
                 >
                   {option.label}
                 </Label>
@@ -244,7 +299,14 @@ export const FilterPanel = ({
           <Label className="text-sm font-medium mb-3 block">Campus</Label>
           <div className="space-y-2">
             {campusOptions.map((option) => (
-              <div key={option.value} className="flex items-center space-x-2">
+              <div 
+                key={option.value} 
+                className={cn(
+                  "flex items-center space-x-2 p-2 rounded-md transition-colors",
+                  "hover:bg-accent/50",
+                  filters.campus?.includes(option.value) && "bg-accent border border-primary/20"
+                )}
+              >
                 <Checkbox
                   id={`campus-${option.value}`}
                   checked={filters.campus?.includes(option.value) || false}
@@ -254,7 +316,7 @@ export const FilterPanel = ({
                 />
                 <Label
                   htmlFor={`campus-${option.value}`}
-                  className="text-sm cursor-pointer"
+                  className="text-sm cursor-pointer flex-1"
                 >
                   {option.label}
                 </Label>
